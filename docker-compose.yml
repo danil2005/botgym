@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  redis:
+    # image: redis:7.4.2-alpine
+    image: mirror.gcr.io/library/redis:7.4.2-alpine
+    container_name: redis_botgym
+    volumes:
+      - ./bot/redis_botgym:/data
+    restart: unless-stopped
+
+  mysql:
+    # image: mysql:8.0.41-bookworm
+    image: mirror.gcr.io/library/mysql:8.0.41-bookworm
+    container_name: mysql_botgym
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./bot/mysql_botgym:/var/lib/mysqldocker
+    restart: unless-stopped
+
+  bot:
+    image: ghcr.io/danil2005/botgym:latest
+    container_name: botgym_container
+    depends_on:
+      - redis
+      - mysql
+    environment:
+      BOT_TOKEN: "your_token"
+      TYPE_DB: mysql
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      HOST_DB: mysql
+      PORT_DB: 3306
+      USER_DB: root
+      PASSWORD_DB: root
+      NAME_DB: botgym
+    restart: unless-stopped

@@ -1,0 +1,19 @@
+docker run -d \
+  --name botgym_container \
+  -e BOT_TOKEN="your_token" \
+  -e TYPE_DB=sqlite \
+  ghcr.io/danil2005/botgym:latest
+
+docker run -d \
+  --name botgym_container \
+  -e BOT_TOKEN="your_token" \
+  -e TYPE_DB=mysql \
+  -e REDIS_HOST=your_redis_host \
+  -e REDIS_PORT=6379 \
+  -e REDIS_PASSWORD=your_redis_pass \
+  -e HOST_DB=your_mysql_host \
+  -e PORT_DB=3306 \
+  -e USER_DB=your_mysql_user \
+  -e PASSWORD_DB=your_mysql_pass \
+  -e NAME_DB=botgym \
+  ghcr.io/danil2005/botgym:latest
