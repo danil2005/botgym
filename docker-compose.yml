@@ -16,7 +16,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./bot/mysql_botgym:/var/lib/mysqldocker
+      - ./bot/mysql_botgym:/var/lib/mysql
     restart: unless-stopped
 
   bot:
